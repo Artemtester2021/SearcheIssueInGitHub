@@ -1,4 +1,6 @@
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +18,7 @@ public class StepTests {
     @Test
     @DisplayName("Лямбда шаги через step (name, () -> {})")
     public void lambdaStepTest() {
-
+        SelenideLogger.addListener("allure", new AllureSelenide());
         step("Открываем главную страницу", () -> {
             open("https://github.com");
         });
@@ -34,5 +36,17 @@ public class StepTests {
         step("Проверяем содержание вкладки Issue " + RESULT, () -> {
             $(withText(RESULT)).should(Condition.exist);
         });
+    }
+
+    @Test
+    public void testAnnotatedStepTest() {
+
+        WebSteps steps = new WebSteps();
+
+        steps.openMainPageTest();
+        steps.searchForRepositoryTest(REPOZITORY);
+        steps.clickOnRepozitoryLinkTest(REPOZITORY);
+        steps.openIssueTabTest();
+        steps.shouldSeeIssueWithResultTest(RESULT);
     }
 }
