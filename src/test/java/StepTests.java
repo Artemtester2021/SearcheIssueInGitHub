@@ -39,6 +39,7 @@ public class StepTests {
     }
 
     @Test
+    @DisplayName("Проверка через аннотации")
     public void testAnnotatedStepTest() {
 
         WebSteps steps = new WebSteps();
