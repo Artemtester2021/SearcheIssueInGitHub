@@ -41,7 +41,7 @@ public class StepTests {
     @Test
     @DisplayName("Проверка через аннотации")
     public void testAnnotatedStepTest() {
-
+        SelenideLogger.addListener("allure", new AllureSelenide());
         WebSteps steps = new WebSteps();
 
         steps.openMainPageTest();
